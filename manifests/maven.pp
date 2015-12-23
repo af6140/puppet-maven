@@ -37,7 +37,7 @@ class maven::maven(
   } ) {
 
   $archive = "/tmp/apache-maven-${version}-bin.tar.gz"
-  $installed_version = getvar('::maven_version')
+  $installed_version = $facts['maven_version']
   
   # Avoid redownloading when tmp tar.gz is deleted
   if $installed_version != $version {
