@@ -37,9 +37,14 @@ class maven::maven(
   } ) {
 
   $archive = "/tmp/apache-maven-${version}-bin.tar.gz"
+  begin 
+   $installed_version = getvar('::maven_version')
+  rescue
+   $installed_version = '0.0.0'
+  end
   
   # Avoid redownloading when tmp tar.gz is deleted
-  if getvar('::maven_version') != $version {
+  if $installed_version != $version {
 
     # we could use puppet-stdlib function !empty(repo) but avoiding adding a new
     # dependency for now
